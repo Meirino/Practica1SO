@@ -73,6 +73,9 @@ int longlines(int n) {
 
         for(i = 0; i < n; i++) {
                 printf("%s", lista[i]);
+		free(lista[i]);
         }
+
+	free(lista);
         return 0;
 }
