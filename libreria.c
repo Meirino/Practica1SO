@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "libreria.h"
 #include <string.h>
+
+char *strdup(const char *str);
 
 int head(int n) {
 	
 	char buffer[1024];
 	int i;
+
+	/* Mientras no se alcance el límite de palabras, o no se lea un caracter nulo por la entrada estandar, mostrar la entrada */
 
 	while((i < n) && (fgets(buffer, 1024, stdin) != NULL)) {
 		printf("%s", buffer);
@@ -26,6 +29,11 @@ int tail(int n) {
         lineas = (char **) malloc(n*sizeof(char*));
 
         i = 0;
+
+	/* Mientras no se lea un caracter nulo por la entrada estandar
+	 * si el "array" esta lleno, entonces se desplaza todas las posiciones a la izquierda y se añade por el final
+	 * si no, solo se añade en orden */
+
         while(fgets(buffer, 1024, stdin) != NULL) {
                 if(i >= n) {
                         for(aux = 1; aux < n; aux++) {
@@ -38,12 +46,15 @@ int tail(int n) {
                 i++;
         }
 
+	/* Escribo y libero memoria */
+
         for(j = 0; j < n; j++) {
                 printf("indice %d: %s", j,lineas[j]);
                 free(lineas[j]);
         }
 
         free(lineas);
+	return 0;
 }
 
 int longlines(int n) {
@@ -53,9 +64,18 @@ int longlines(int n) {
         int j;
 
         lista = (char **) malloc(n*sizeof(char *));
-        for(i = 0; i < n; i++) { /* Inicializar lista a NULL */
+
+	if(lista == NULL) return 1;
+
+	/* Inicializar la lista a NULL para evitar posibles valores basura */
+
+        for(i = 0; i < n; i++) {
                 lista[i] = NULL;
         }
+
+	/* Mientras no se lea un caracter nulo por la entrada estandar 
+	 * recorro con while toda la lista, y si la posicion actual esta vacia o su contenido es menor a lo leido
+	 * entonces muevo el contenido a la derecha e inserto  */
 
         while(fgets(buffer, 1024, stdin) != NULL) {
                 i = 0;
@@ -71,6 +91,8 @@ int longlines(int n) {
                 }
         }
 
+	/* Escribo y libero memoria */
+
         for(i = 0; i < n; i++) {
                 printf("%s", lista[i]);
 		free(lista[i]);
@@ -78,4 +100,13 @@ int longlines(int n) {
 
 	free(lista);
         return 0;
+}
+
+/* Redefino strdup para evitar problemas de compatibilidad de usar funciones POSIX con el estandar ANSI C */
+
+char *strdup(const char *str) {
+	char *d = malloc((strlen(str) * sizeof(char)) + 1);
+	if (d == NULL) return NULL;
+	strcpy(d, str);
+	return d;
 }
