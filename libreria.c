@@ -7,12 +7,12 @@ char *strdup(const char *str);
 int head(int n) {
 	
 	char buffer[1024];
-	int i;
+	int i = 0;
 
 	/* Mientras no se alcance el límite de palabras, o no se lea un caracter nulo por la entrada estandar, mostrar la entrada */
 
 	while((i < n) && (fgets(buffer, 1024, stdin) != NULL)) {
-		printf("%s", buffer);
+		printf("%d - %s", i+1, buffer);
 		i++;
 	}
 
@@ -49,7 +49,7 @@ int tail(int n) {
 	/* Escribo y libero memoria */
 
         for(j = 0; j < n; j++) {
-                printf("indice %d: %s", j,lineas[j]);
+                if(lineas[j] != NULL) printf("%d - %s", j+1, lineas[j]);
                 free(lineas[j]);
         }
 
@@ -94,11 +94,10 @@ int longlines(int n) {
 	/* Escribo y libero memoria */
 
         for(i = 0; i < n; i++) {
-                printf("%s", lista[i]);
+		if(lista[i] != NULL) printf("%d - %s", i+1, lista[i]);
 		free(lista[i]);
         }
 
-	free(lista);
         return 0;
 }
 
