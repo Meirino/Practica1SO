@@ -27,6 +27,9 @@ int tail(int n) {
         char buffer[1024];
 
         lineas = (char **) malloc(n*sizeof(char*));
+	
+	/* Si la memoria estuviese llena, cesa la ejecución */
+	if(lista == NULL) return 1;
 
         i = 0;
 
@@ -65,6 +68,7 @@ int longlines(int n) {
 
         lista = (char **) malloc(n*sizeof(char *));
 
+	/* Si la memoria estuviese llena, cesa la ejecución */
 	if(lista == NULL) return 1;
 
 	/* Inicializar la lista a NULL para evitar posibles valores basura */
