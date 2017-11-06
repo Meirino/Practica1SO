@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <libreria.h>
 
 char *strdup(const char *str);
 
@@ -29,7 +30,7 @@ int tail(int n) {
         lineas = (char **) malloc(n*sizeof(char*));
 	
 	/* Si la memoria estuviese llena, cesa la ejecución */
-	if(lista == NULL) return 1;
+	if(lineas == NULL) return 1;
 
         i = 0;
 
