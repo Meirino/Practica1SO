@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <libreria.h>
+#include "libreria.h"
 
 char *strdup(const char *str);
 
